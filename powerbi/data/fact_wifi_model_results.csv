@@ -1,0 +1,12 @@
+model,context,noisy_accuracy,seeds,source
+Decision Tree,Single-packet,68.5,3,README.md
+Decision Tree,10-packet,72.81,3,README.md
+CNN,Single-packet,71.71,3,README.md
+CNN,10-packet,95.21,3,README.md
+LSTM,Single-packet,72.43,3,README.md
+LSTM,10-packet,93.91,3,README.md
+XGBoost,Single-packet,74.2,3,README.md
+XGBoost,10-packet,91.22,3,README.md
+Random Forest,Single-packet,78.89,3,README.md
+Random Forest,10-packet,97.74,3,README.md
+Transformer (BBOT-tuned),10-packet,94.88,3,README.md

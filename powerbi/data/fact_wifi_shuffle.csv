@@ -1,0 +1,3 @@
+model,ordered,shuffled,delta,source
+Random Forest,97.97,97.5,-0.47,README.md
+Transformer,93.32,95.08,1.76,README.md

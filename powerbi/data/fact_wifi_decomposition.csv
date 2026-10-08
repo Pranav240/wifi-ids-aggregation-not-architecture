@@ -1,0 +1,4 @@
+representation,input_dim,noisy_accuracy,step_order,source
+Single packet,18,81.98,1,README.md
+Mean-pooled window,18,92.98,2,README.md
+Flattened window,180,97.97,3,README.md
