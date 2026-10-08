@@ -1,0 +1,14 @@
+# data and model artifacts (large / not redistributable)
+data/
+*.npz
+*.pkl
+*.csv
+*.h5
+*.keras
+# environments
+wifi_ids_env/
+venv/
+__pycache__/
+*.pyc
+# local/personal
+.env

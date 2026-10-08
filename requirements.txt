@@ -1,0 +1,31 @@
+# Wi-Fi IDS pipeline dependencies
+#
+# Versions are pinned with >= lower bounds and < upper bounds on the major
+# version, rather than exact ==, so the environment is reproducible without
+# being brittle across platforms.
+#
+# NOTE ON SCIKIT-LEARN: the pickled LabelEncoder and StandardScaler in
+# data/prepared/ are written by whichever version created them. Loading
+# them under a DIFFERENT minor version raises InconsistentVersionWarning.
+# That warning is benign for these two simple estimators, but if you see it
+# and want it gone, either (a) install the same version listed below, or
+# (b) re-run stages 01-02 to regenerate the pickles under your version.
+#
+# Install:
+#   python -m venv wifi_ids_env
+#   .\wifi_ids_env\Scripts\Activate.ps1     # Windows
+#   source wifi_ids_env/bin/activate        # Linux / macOS
+#   pip install -r requirements.txt
+
+numpy>=1.26,<3.0
+pandas>=2.0,<3.0
+scikit-learn>=1.5,<2.0
+xgboost>=2.0,<4.0
+optuna>=3.5,<5.0
+matplotlib>=3.8,<4.0
+
+# TensorFlow provides Keras 3, used for the CNN, LSTM, and Transformer.
+# On native Windows, TF >= 2.11 is CPU-only; GPU requires WSL2 or the
+# tensorflow-directml plugin. The pipeline runs fine on CPU - the full
+# suite completes in a few hours on a typical laptop.
+tensorflow>=2.16,<3.0
