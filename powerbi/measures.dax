@@ -1,0 +1,27 @@
+-- ===== Calendar (Modeling > New table) =====
+DimDate = CALENDAR ( MIN ( fact_commits[commit_date] ), MAX ( fact_commits[commit_date] ) )
+-- then add columns: Month = FORMAT([Date],"yyyy-MM") ; mark as date table.
+
+-- ===== Repo activity =====
+Commits          = COUNTROWS ( fact_commits )
+Active Days      = DISTINCTCOUNT ( fact_commits[commit_date] )
+Commits / Active Day = DIVIDE ( [Commits], [Active Days] )
+Lines Added      = SUM ( fact_commits[insertions] )
+Lines Deleted    = SUM ( fact_commits[deletions] )
+Churn Ratio      = DIVIDE ( [Lines Deleted], [Lines Added] )
+Commits Last 30d =
+    CALCULATE ( [Commits], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -30, DAY ) )
+Repo Lines (current) = SUM ( fact_repo_language[lines] )
+
+-- ===== Wi-Fi IDS =====
+Best Noisy Accuracy      = MAX ( fact_wifi_model_results[noisy_accuracy] )
+Avg Noisy Accuracy       = AVERAGE ( fact_wifi_model_results[noisy_accuracy] )
+Context Gain (pts)       =
+    CALCULATE ( AVERAGE ( fact_wifi_model_results[noisy_accuracy] ), fact_wifi_model_results[context] = "10-packet" )
+  - CALCULATE ( AVERAGE ( fact_wifi_model_results[noisy_accuracy] ), fact_wifi_model_results[context] = "Single-packet" )
+-- Context Gain compares models that exist in both contexts; Transformer has only 10-packet. Filter it out or use a per-model chart.
+Aggregation Gain (pts)   = CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Single packet" )
+Beyond-Average Gain (pts)= CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Flattened window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" )
+Shuffle Delta (pts)      = SUM ( fact_wifi_shuffle[delta] )
+Seed Std                 = SUM ( fact_wifi_variance[model_seed_std] )
+Split Std                = SUM ( fact_wifi_variance[split_std] )
