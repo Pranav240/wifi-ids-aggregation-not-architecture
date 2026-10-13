@@ -1,0 +1,17 @@
+{
+  "exported_on": "2026-10-13",
+  "git_ref": "origin/main",
+  "git_ref_sha": "e7ce6d7c1469164da9480ec333f5a34206b2f92e",
+  "latest_commit": "e7ce6d7",
+  "latest_commit_date": "2026-10-08T19:48:45+05:30",
+  "row_counts": {
+    "fact_wifi_model_results": 11,
+    "fact_wifi_decomposition": 3,
+    "fact_wifi_window_sweep": 4,
+    "fact_wifi_shuffle": 2,
+    "fact_wifi_variance": 2,
+    "dim_repo": 1,
+    "fact_commits": 3,
+    "fact_repo_language": 3
+  }
+}
