@@ -97,4 +97,6 @@ def test_csvs_rebuild_byte_for_byte(tmp_path):
     subprocess.run([sys.executable, str(HERE / "build_data.py"), "--ref", sha, "--out", str(tmp_path)],
                    check=True, capture_output=True)
     for f in sorted(DATA.glob("*.csv")):
-        assert (tmp_path / f.name).read_bytes() == f.read_bytes(), f"{f.name} differs from a fresh build"
+        fresh = (tmp_path / f.name).read_bytes()
+        # Git on Windows may check files out with CRLF; compare content, not line endings.
+        assert fresh == f.read_bytes().replace(b"\r\n", b"\n"), f"{f.name} differs from a fresh build"

@@ -202,7 +202,7 @@ If `build_data.py` stops with an error, the README table layout changed; it will
 3. every formula in the DAX table equals the one in `measures.dax`, and every measure there is in the table;
 4. every result number in the CSVs appears in the repo `README.md`;
 5. `source` and `result_basis` values are in their allowed lists, and each table holds one basis;
-6. rebuilding the CSVs from the recorded git ref reproduces the committed files byte for byte.
+6. rebuilding the CSVs from the recorded git ref reproduces the committed files (line endings ignored).
 
 ## Known caveats
 
