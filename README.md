@@ -8,6 +8,8 @@ packet ordering — drives noise robustness. A Random Forest on flattened
 10-packet windows outperforms a hyperparameter-tuned Transformer whose
 positional encoding is demonstrably inert on this data.
 
+**Power BI** — [`powerbi/`](powerbi/) has the data extracts, Power Query, DAX measures, checks and rebuild guide for a report on these results.
+
 ---
 
 ## Results summary
