@@ -167,7 +167,23 @@ Example visual title: `Noisy accuracy by model and context | basis: ` + `[Basis 
 
 ## Screenshots
 
-Save to `powerbi/screenshots/`. These are the shots to capture (1600 px wide, light theme).
+The report in Power BI Desktop (`wifi-ids-report.pbix` in this folder). Each page uses one result table, so each has one basis.
+
+**Page 1: Which models hold up on noisy traffic?** (basis: 3-seed mean, primary split)
+
+![Page 1: noisy accuracy by model and context](screenshots/01-primary-comparison.png)
+
+**Page 2: Where does the gain come from?** (basis: stage 09 representation test)
+
+![Page 2: noisy accuracy by representation](screenshots/02-aggregation-vs-model.png)
+
+**Page 3: Does packet order matter?** (basis: stage 08 shuffle test)
+
+![Page 3: ordered vs shuffled noisy accuracy](screenshots/03-packet-order.png)
+
+### Shot list
+
+To retake a shot or add pages 4 and 5, save to `powerbi/screenshots/` with these names (1600 px wide, light theme).
 
 | File | Page | The shot must show |
 |---|---|---|
