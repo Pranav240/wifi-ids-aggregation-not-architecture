@@ -107,14 +107,14 @@ Formulas are copied from `measures.dax` (`test_pack.py` checks every one appears
 
 ### Needs my review
 
-- **Context Gain (matched models, pts)**: DAX not run (no Power BI in this environment). The pandas version in check_measures.py is the intended value; if the card differs, this measure is the suspect.
+- **Context Gain (matched models, pts)**: the most complex measure (a VAR table plus KEEPFILTERS). Its card matched `check_measures.py` (17.03) on 2026-10-22; if a card ever differs, this is the first suspect.
 - **Seed Std**: Meaningless as a single card because it sums over models.
 - **Split Std**: Same: only valid split by model.
 
 ### Headline numbers
 
 `check_measures.py` prints these. They are the values the Power BI cards should show.
-**Not yet confirmed against Power BI.** Whoever builds the report should compare each card and note any mismatch here.
+**Confirmed against Power BI Desktop on 2026-10-22:** all five cards below showed these values. The other measures were not compared one by one.
 
 <!-- headline:start -->
 | Measure | Value | Basis |
@@ -210,7 +210,7 @@ If `build_data.py` stops with an error, the README table layout changed; it will
 - The README states the same setting under different bases without explaining the differences (RF single packet: 78.89 / 81.98 / 79.30; Transformer: 94.88 / 93.32 / 94.13). Do not put them on one axis.
 - The window sweep at W=10 (92.8) is not the same number as the mean-pooled window in the representation test (92.98), though both are described in the same README section.
 - The noise is synthetic, and the repo README lists a possible protocol shortcut (`arp.opcode`) and two thin classes. State these on the report.
-- The Context Gain measure was rewritten (see below) and its DAX has not been run in Power BI.
+- The Context Gain measure was rewritten (see below); its card matched the pandas value in Power BI Desktop on 2026-10-22.
 
 ## Changes from the first version of this pack
 

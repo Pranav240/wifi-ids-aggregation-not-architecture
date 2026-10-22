@@ -202,7 +202,7 @@ def main() -> None:
     args = ap.parse_args()
     t = load(args.data)
 
-    print("Headline numbers - the Power BI cards should show these (not confirmed against Power BI yet)")
+    print("Headline numbers - the Power BI cards should show these (the five cards matched in Power BI Desktop on 2026-10-22)")
     for name, val, basis in headline(t):
         print(f"  {name:<36} {val:>8.2f}   basis: {basis}")
 
