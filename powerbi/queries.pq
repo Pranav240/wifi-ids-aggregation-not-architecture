@@ -36,6 +36,7 @@ let
         {"context",type text},
         {"noisy_accuracy",type number},
         {"seeds",Int64.Type},
+        {"result_basis",type text},
         {"source",type text}}, "en-US")
 in T
 
@@ -48,6 +49,7 @@ let
         {"input_dim",Int64.Type},
         {"noisy_accuracy",type number},
         {"step_order",Int64.Type},
+        {"result_basis",type text},
         {"source",type text}}, "en-US")
 in T
 
@@ -58,6 +60,7 @@ let
   T = Table.TransformColumnTypes(H, {
         {"window_size",Int64.Type},
         {"noisy_accuracy",type number},
+        {"result_basis",type text},
         {"source",type text}}, "en-US")
 in T
 
@@ -70,6 +73,7 @@ let
         {"ordered",type number},
         {"shuffled",type number},
         {"delta",type number},
+        {"result_basis",type text},
         {"source",type text}}, "en-US")
 in T
 
@@ -82,6 +86,7 @@ let
         {"noisy_accuracy",type number},
         {"model_seed_std",type number},
         {"split_std",type number},
+        {"result_basis",type text},
         {"source",type text}}, "en-US")
 in T
 

@@ -14,14 +14,41 @@ Commits Last 30d =
 Repo Lines (current) = SUM ( fact_repo_language[lines] )
 
 -- ===== Wi-Fi IDS =====
-Best Noisy Accuracy      = MAX ( fact_wifi_model_results[noisy_accuracy] )
-Avg Noisy Accuracy       = AVERAGE ( fact_wifi_model_results[noisy_accuracy] )
-Context Gain (pts)       =
-    CALCULATE ( AVERAGE ( fact_wifi_model_results[noisy_accuracy] ), fact_wifi_model_results[context] = "10-packet" )
-  - CALCULATE ( AVERAGE ( fact_wifi_model_results[noisy_accuracy] ), fact_wifi_model_results[context] = "Single-packet" )
--- Context Gain compares models that exist in both contexts; Transformer has only 10-packet. Filter it out or use a per-model chart.
-Aggregation Gain (pts)   = CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Single packet" )
-Beyond-Average Gain (pts)= CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Flattened window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" )
-Shuffle Delta (pts)      = SUM ( fact_wifi_shuffle[delta] )
-Seed Std                 = SUM ( fact_wifi_variance[model_seed_std] )
-Split Std                = SUM ( fact_wifi_variance[split_std] )
+-- Every result table carries result_basis (the experiment the number comes from). The same
+-- model has different values under different bases, so one page = one table = one basis.
+-- The Basis measures return the basis for chart titles; they say MIXED if a visual spans two.
+
+-- ---- Basis labels (use in visual titles) ----
+Basis (primary comparison) = SELECTEDVALUE ( fact_wifi_model_results[result_basis], "MIXED BASES - do not read" )
+Basis (representation test) = SELECTEDVALUE ( fact_wifi_decomposition[result_basis], "MIXED BASES - do not read" )
+Basis (window sweep) = SELECTEDVALUE ( fact_wifi_window_sweep[result_basis], "MIXED BASES - do not read" )
+Basis (shuffle test) = SELECTEDVALUE ( fact_wifi_shuffle[result_basis], "MIXED BASES - do not read" )
+Basis (split variance) = SELECTEDVALUE ( fact_wifi_variance[result_basis], "MIXED BASES - do not read" )
+
+-- ---- Page 1: primary comparison (3-seed mean, primary split) ----
+Best Noisy Accuracy = MAX ( fact_wifi_model_results[noisy_accuracy] )
+-- Compares only models that have both a Single-packet and a 10-packet row (the Transformer has no single-packet row).
+Context Gain (matched models, pts) =
+    VAR SingleModels =
+        CALCULATETABLE ( VALUES ( fact_wifi_model_results[model] ), fact_wifi_model_results[context] = "Single-packet" )
+    RETURN
+        CALCULATE (
+            AVERAGE ( fact_wifi_model_results[noisy_accuracy] ),
+            fact_wifi_model_results[context] = "10-packet",
+            KEEPFILTERS ( fact_wifi_model_results[model] IN SingleModels )
+        )
+        - CALCULATE ( AVERAGE ( fact_wifi_model_results[noisy_accuracy] ), fact_wifi_model_results[context] = "Single-packet" )
+
+-- ---- Page 2: where the gain comes from (stage 09 representation test) ----
+Aggregation Gain (pts) = CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Single packet" )
+Beyond-Average Gain (pts) = CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Flattened window" ) - CALCULATE ( MAX ( fact_wifi_decomposition[noisy_accuracy] ), fact_wifi_decomposition[representation] = "Mean-pooled window" )
+
+-- ---- Page 3: does packet order matter (stage 08 shuffle test) ----
+Shuffle Delta RF (pts) = CALCULATE ( SUM ( fact_wifi_shuffle[delta] ), fact_wifi_shuffle[model] = "Random Forest" )
+Shuffle Delta Transformer (pts) = CALCULATE ( SUM ( fact_wifi_shuffle[delta] ), fact_wifi_shuffle[model] = "Transformer" )
+
+-- ---- Optional page 4 / 5 (each its own basis) ----
+-- Seed Std and Split Std are only meaningful split by model (put model on the axis); do not use them as a card.
+Seed Std = SUM ( fact_wifi_variance[model_seed_std] )
+Split Std = SUM ( fact_wifi_variance[split_std] )
+Split Gap (pts) = CALCULATE ( MAX ( fact_wifi_variance[noisy_accuracy] ), fact_wifi_variance[model] = "Random Forest" ) - CALCULATE ( MAX ( fact_wifi_variance[noisy_accuracy] ), fact_wifi_variance[model] = "Transformer" )
