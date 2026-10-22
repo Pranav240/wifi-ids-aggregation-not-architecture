@@ -203,6 +203,24 @@ the raw data contains casing and spelling drift (`Kr00k` vs `Kr00K`,
 
 ---
 
+## Power BI report
+
+The results above as a Power BI report, built from the numbers in this README. Each page uses one result table, so each has one basis. Data, Power Query, DAX measures and rebuild steps are in [`powerbi/`](powerbi/).
+
+**Page 1: Which models hold up on noisy traffic?**
+
+![Page 1: noisy accuracy by model and context](powerbi/screenshots/01-primary-comparison.png)
+
+**Page 2: Where does the gain come from?**
+
+![Page 2: noisy accuracy by representation](powerbi/screenshots/02-aggregation-vs-model.png)
+
+**Page 3: Does packet order matter?**
+
+![Page 3: ordered vs shuffled noisy accuracy](powerbi/screenshots/03-packet-order.png)
+
+---
+
 ## Presentation
 
 Presented orally at the 19th International Conference on Computer Science and Information Technology
