@@ -203,6 +203,15 @@ the raw data contains casing and spelling drift (`Kr00k` vs `Kr00K`,
 
 ---
 
+## Presentation
+
+Presented orally at the 19th International Conference on Computer Science and Information Technology
+(ICCSIT 2026), Paris, France, September 25-27, 2026 (Paper ID ZX1060).
+
+[![Certificate for Oral Presentation, ICCSIT 2026](docs/ICCSIT_2026_Oral_Presentation_Certificate.png)](docs/ICCSIT_2026_Oral_Presentation_Certificate.pdf)
+
+---
+
 ## Citation
 
 If you use this code, please cite the accompanying paper (ICCSIT 2026
