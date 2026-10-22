@@ -232,5 +232,5 @@ Presented orally at the 19th International Conference on Computer Science and In
 
 ## Citation
 
-If you use this code, please cite the accompanying paper (ICCSIT 2026
-submission, Paper ID ZX1060).
+If you use this code, please cite the accompanying paper (presented at
+ICCSIT 2026, Paris, September 25-27, 2026, Paper ID ZX1060).
